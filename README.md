@@ -8,6 +8,13 @@ Install package dependencies:
 npm install
 ```
 
+## Config
+
+```sh
+# .env file:
+ALPHAVANTAGE_API_KEY="______"
+```
+
 ## Usage
 
 Run a local web server:

@@ -1,7 +1,8 @@
+var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
 
-//const API_KEY = process.env.ALPHAVANTAGE_API_KEY || "abc123" // obtain your own api key and set via environment variable
+const API_KEY = process.env.ALPHAVANTAGE_API_KEY || "abc123" // obtain your own api key and set via environment variable
 
 router.get('/form', function(req, res, next) {
   res.render("stocks_form");
@@ -12,12 +13,23 @@ router.post('/dashboard', function(req, res, next) {
   var symbol = req.body.symbol || "OOPS"
   console.log("STOCK SYMBOL", symbol)
 
-  //var requestUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${API_KEY}`
-  //console.log("REQUEST URL", requestUrl)
+  var requestUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&apikey=${API_KEY}`
+  console.log("REQUEST URL", requestUrl)
 
-  var parsedResponse = {"Meta Data":{}, "Time Series":{}}
-
-  res.render("stocks_dashboard", {symbol: symbol, data: parsedResponse});
+  fetch(requestUrl)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data){
+        console.log("STOCK DATA SUCCESS", Object.keys(data))
+        var latestClose = Object.values(data["Time Series (Daily)"])[0]["5. adjusted close"]
+        res.render("stocks_dashboard", {symbol: symbol, data: JSON.stringify(data), latestClose: latestClose});
+      })
+    .catch(function(err){
+      console.log("STOCK DATA ERROR:", err)
+      // todo: send a flash message as well
+      res.redirect("/stocks/form")
+    })
 });
 
 module.exports = router;

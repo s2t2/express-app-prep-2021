@@ -1,3 +1,5 @@
+require('dotenv').config(); // use environment variables from .env file
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
