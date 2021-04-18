@@ -1,7 +1,7 @@
 
 <h2>Stocks Dashboard</h2>
 
-<p>Here is the data...</p>
+<p>Here is some data about <%= symbol %> ...</p>
 
 <div id="chart-container">
 </div>
@@ -9,6 +9,9 @@
 
 <script type="text/javascript">
     console.log("STOCKS DASHBOARD...")
+
+    var stockData = '<%- JSON.stringify(data) %>'
+    console.log(stockData)
 
     // fetch JSON data
 </script>

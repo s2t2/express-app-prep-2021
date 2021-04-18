@@ -3,14 +3,14 @@
 
 <p>Request some stock market data...</p>
 
-<form action="/stocks" method="POST">
+<form action="/stocks/dashboard" method="POST">
 
     <label>Stock Symbol:</label>
     <input type="text" name="symbol" placeholder="MSFT" value="MSFT">
     <br>
 
     <label>Risk Tolerance:</label>
-    <select>
+    <select name="risk_level">
         <option value="high">High</option>
         <option value="medium">Medium</option>
         <option value="low">Low</option>
