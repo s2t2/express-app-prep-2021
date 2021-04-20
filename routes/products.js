@@ -5,12 +5,9 @@ var router = express.Router();
 // FIREBASE SERVICE
 //
 
-//import firebase from "firebase/app"
-///import "firebase/auth"
-//import "firebase/firestore"
-const firebase = require('firebase/app');
-require('firebase/firestore');
 
+const firebase = require("firebase/app")
+require("firebase/firestore")
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -48,10 +45,6 @@ async function fetchProducts() {
     return products
 }
 
-//function fetchProducts(){
-//    return [1,2,3]
-//}
-
 router.get('/', async function(req, res, next) {
     //var products = fetchProducts()
     try {
@@ -60,6 +53,19 @@ router.get('/', async function(req, res, next) {
     } catch (error) {
         res.redirect("/")
     }
+})
+
+router.post('/orders', function(req, res, next) {
+
+    console.log("FORM DATA", req.body)
+    //var email = req.body.email
+    var productId = req.body.productId
+    var productName = req.body.productName
+    var productPrice = req.body.productPrice
+    console.log("TODO: ORDER PRODUCT", productId, productName, productPrice)
+
+    req.flash("warning", "Order sent successfully!")
+    res.redirect("/products")
 })
 
 module.exports = router;
