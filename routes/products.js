@@ -54,8 +54,12 @@ async function fetchProducts() {
 
 router.get('/', async function(req, res, next) {
     //var products = fetchProducts()
-    var products = await fetchProducts()
-    res.render("products", {"products": products});
+    try {
+        var products = await fetchProducts()
+        res.render("products", {"products": products})
+    } catch (error) {
+        res.redirect("/")
+    }
 })
 
 module.exports = router;
