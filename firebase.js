@@ -1,10 +1,7 @@
 
-// todo: https://medium.com/@codemonk/using-firebase-as-an-authenticating-middleware-in-express-js-99df5f19302f
-
-
 
 const firebase = require("firebase/app")
-//require("firebase/auth")
+require("firebase/auth")
 require("firebase/firestore")
 
 const firebaseConfig = {
@@ -43,7 +40,29 @@ async function fetchProducts() {
     return products
 }
 
+async function loginGoogle() {
+
+    var provider = new firebase.auth.GoogleAuthProvider()
+    provider.addScope("https://www.googleapis.com/auth/userinfo.email") // see: https://developers.google.com/identity/protocols/oauth2/scopes
+
+    const result = await app.auth().signInWithPopup(provider)
+    //const result = await app.auth().signInWithRedirect(provider)
+
+    var user = result.user
+    var providerId = result.additionalUserInfo.providerId
+    var profile = result.additionalUserInfo.profile
+    var token = result.credential.accessToken
+    console.log("----------------")
+    console.log("LOGIN SUCCESS:")
+    console.log("USER:", user) // user.uid, user.displayName, user.email, user.emailVerified, user.phoneNumber, user.photoURL, user.refreshToken
+    console.log("PROVIDER:", providerId)
+    console.log("USER PROFILE:", profile)
+    console.log("ACCESS TOKEN", token)
+    return user
+}
+
+
 module.exports = {
     firebaseConfig, app, db,
-    fetchProducts
+    fetchProducts, loginGoogle
 }

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {fetchProducts} = require("../firebase")
+const {fetchProducts, firebase} = require("../firebase")
 
 router.get('/', async function(req, res, next) {
     //var products = fetchProducts()
