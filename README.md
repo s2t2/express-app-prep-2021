@@ -1,4 +1,14 @@
 
+## Prerequisites
+
+```sh
+node --version
+#> v12.18.3
+
+nvm ls-remote
+
+nvm install 14.16.1
+```
 
 ## Installation
 
