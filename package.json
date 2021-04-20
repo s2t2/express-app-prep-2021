@@ -1,7 +1,6 @@
 {
   "name": "my-app-prep",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "start": "nodemon ./bin/www",
     "fetch-data": "node ./jobs/fetch_data.js"
