@@ -1,10 +1,5 @@
 
-// todo: https://medium.com/@codemonk/using-firebase-as-an-authenticating-middleware-in-express-js-99df5f19302f
-
-
-
 const firebase = require("firebase/app")
-//require("firebase/auth")
 require("firebase/firestore")
 
 const firebaseConfig = {
